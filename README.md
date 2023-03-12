@@ -5,7 +5,6 @@ The data comes from the TMDB API.
 Developed with HTML, styled with Sass, I use Javascript, BEM and React methodology. Deploy to Firebase. Fully responsive.
 
 
-Here you can see the website:
-<a href='https://peliadvisor.web.app/'>
+Here you can see the <a href='https://peliadvisor.web.app/'>website</a>
 
 ![peliadv](https://user-images.githubusercontent.com/85759378/224577247-66a3fa15-6658-4ada-8524-a4a8d568dc34.png)
