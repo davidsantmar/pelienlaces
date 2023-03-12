@@ -5,14 +5,14 @@ import Navbar from './Navbar';
 const Header = () => {
     return (
         <header className='header'>
-                <div className='web--name'>
+                <div className='web--name' id='web-name'>
                     <h1 className='title'>
                         PELI ADVISOR
                         <div className='beta__container'>
                             <sup className='beta'>BETA</sup>
                         </div>
                     </h1>
-                    <Link to='/' className='logo home'></Link>
+                    <Link to='/' id='logo' className='logo home'></Link>
                 </div>
         </header>
     );

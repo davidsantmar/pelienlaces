@@ -10,9 +10,11 @@ const Upcoming = () => {
     const [page, setPage] = useState(1);
     const handlePrev = () => {
         setPage(page > 1 ? page - 1 : 1);
+        window.scrollTo(0,0);
     }
     const handleNext = () => {
         setPage(page + 1);
+        window.scrollTo(0,0);
     }
     const pagination = (
       <>
@@ -49,7 +51,7 @@ const Upcoming = () => {
                 </div>
                 <div className="popular--movies--container">
                     {movies.map((movie) => (
-                        <div className="popular__movie__card square-in">
+                        <div className="popular__movie__card square-in" key={movie.id}>
                         <Link
                             to='/selectedMovie'
                             className='movie__card__shown'

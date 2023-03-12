@@ -70,12 +70,13 @@ const SelectedMovie = () => {
             setViewMore(movieCast.length);
         }
     }
+    
     return (
         <>
             <div className='movie--selected--section wipe-in'>
                 <div className='movie--data--container'>
                     <h1 className='movie__title'>{movie.title}</h1>
-                    <img className='movie__poster' src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`} title={movie.title} alt='movie poster'></img>
+                    <img className='movie__poster'  id='movie-poster' src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`} title={movie.title} alt='movie poster'></img>
                     <span className='synopsis'>{movie.overview}</span>
                     <hr />
                     <div className='cast'>

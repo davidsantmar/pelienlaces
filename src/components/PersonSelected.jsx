@@ -23,7 +23,6 @@ const PersonSelected = () => {
             setBirthDay(person?.birthday?.substr(person.birthday.length-2,2) + '-');
             setBirthMonth(person?.birthday?.substr(person.birthday.length-5,2) + '-');
             setBirthYear(person?.birthday?.substr(person.birthday.length-person.birthday.length,4));
-        
     }
     const handleDeathday = () => {
         if (person.deathday === null){
@@ -36,7 +35,7 @@ const PersonSelected = () => {
     }
     const pushFooter = () =>{
         if (person.biography === ''){
-            document.getElementById('footer').style.marginTop = '8rem';
+            document.getElementById('slider').style.marginBottom = '12rem';
         }
     }
     setTimeout(handleBirthday, 200);
@@ -46,18 +45,26 @@ const PersonSelected = () => {
         <div className='person--section diamond'>
             <div className='person--data--container'>
                 <h1 className='person__name'>{person.name}</h1>
-                <img className='person__picture' src={`https://image.tmdb.org/t/p/w400${person.profile_path}`} title={person.name}></img>
+                <img className='person__picture' id='person-picture' src={`https://image.tmdb.org/t/p/w400${person.profile_path}`} title={person.name} alt={person.name}></img>
                 <span className='birth__place'>{person.place_of_birth}</span>                
                 {person.birthday ? (
-                    <span className='birthday'>{birthDay}{birthMonth}{birthYear}</span>
+                    <div className='birthday--container'>
+                        <span className='birthday'>{birthDay}{birthMonth}{birthYear}</span>
+                    </div>
                 ) : (
-                    <span className='birth_place'>Sin datos registrados</span>
+                    <div className=' birthday--container'>
+                        <span className='birth_place'>Sin datos registrados</span>
+                    </div>
                     )
                 }
                 {person.deathday ? (
-                    <span className='deathday'>{deathDay}{deathMonth}{deathYear}</span>                
+                    <div className='deathday--container'>
+                        <span className='deathday'>{deathDay}{deathMonth}{deathYear}</span>                
+                    </div>
                 ) : (
-                    <span className='deathday'></span>
+                    <div className='deathday--container'>
+                        <span className='deathday'></span>
+                    </div>
                     )
                 }
                 <hr />

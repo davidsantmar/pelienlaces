@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadMovies } from "../redux/actions/popularMoviesActionCreator";
 import { loadMovie } from "../redux/actions/selectedMovieActionCreator";
@@ -8,11 +8,14 @@ const PopularMovies = () => {
     const dispatch = useDispatch();
     const movies = useSelector((state) => state.popularMovies);
     const [page, setPage] = useState(1);
+  
     const handlePrev = () => {
         setPage(page > 1 ? page - 1 : 1);
+        window.scrollTo(0,0);
     }
     const handleNext = () => {
         setPage(page + 1);
+        window.scrollTo(0,0);
     }
     const pagination = (
         <>
@@ -45,7 +48,7 @@ const PopularMovies = () => {
     }
     return (
         <>
-        <div className="popular--movies--section ">
+        <div className="popular--movies--section" id='popular-movies-section'>
                 <div className="popular__movies__title">
                     <h1>Las películas mejor valoradas por los espectadores</h1>
                 </div>

@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Gruppo&display=swap');
 body{
     background-color: rgba(0, 0, 0, 0.734);
@@ -18,6 +17,7 @@ hr{
       display: flex;
       flex-direction: row;
       align-items: center;
+      justify-content: center;
       background-color: rgb(50, 50, 250);
       width: 100%;
       .logo{
@@ -26,6 +26,7 @@ hr{
         background-image: url('./images/logo.png');
         background-size: cover;
         margin-left: 1rem;
+        display: flex;
       }
       .title{
         color: #fff;
@@ -92,10 +93,8 @@ hr{
       font-size: 1.5rem;
       font-family: 'Gruppo';
       color: white;
-      margin-left: -.2rem;
     }
     li:hover, .login__button:hover, .logout__button:hover{
-      color: #fff;
       color: #fff;
       text-shadow:
       0 0 7px #fff,
@@ -206,6 +205,7 @@ hr{
       border: none;
       margin-right: 1rem;
       font-family: 'Gruppo';
+      display: flex;
     }
     .input__field:hover{
       border: 2px solid lightblue;
@@ -327,20 +327,22 @@ hr{
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 1rem;
         .popular__movie__image{
-          margin: 1rem;
           background-position: center;
           border-radius: 10px;
           height: 18rem;
           width: 12rem;
           background-repeat: "no-repeat";
           background-size: "cover";
+          display: flex;
           .vote__average{
-            color: black;
+            color: white;        
             height: 1rem;
-            background-color: lightgray;
+            background-color: rgb(50, 50, 250);;
             border-radius: 5px;
-            padding: .3rem;
+            padding: .4rem;
+            font-family: 'Gruppo';
           }
         }
         .popular__movie__title{
@@ -351,6 +353,7 @@ hr{
           border-radius: 10px;
           padding: .5rem;
           color: black;
+          margin-top: 1rem;
         }
       }
       .movie__card__shown:hover .popular__movie__title{
@@ -549,9 +552,30 @@ hr{
       border-radius: 10px;
       margin-bottom: 2rem;
     }
-    .birth__place, .birthday{
+    .birth__place{
       text-align: center;
       margin-bottom: 1rem;
+      width: 100%;
+    }
+    .birthday--container{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+      .birthday{
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+    }
+    .deathday--container{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+      .deathday{
+        text-align: center;
+        margin-bottom: 1rem;
+      }
     }
     .biography{
       text-align: center;
@@ -835,16 +859,12 @@ h1 {
     }
   }
   .input--movie--container{
-    .search__button{
+    .search__button, .search__button:hover{
       font-size: 1rem;
     }
   }
   #mainMenu{
-    ul{
-      .login__button, .logout__button{
-        margin-left: 0rem;
-      }
-    }
+    overflow: hidden;
   }
   .modal--background{
     .modal--card{
@@ -878,6 +898,180 @@ h1 {
           width: 18rem;
           height: 10rem;
         }
+      }
+    }
+  }
+  #mainMenu{
+    overflow: hidden;
+  }
+}
+@supports (-webkit-touch-callout: none) {
+  /* CSS specific to iOS devices */ 
+  @media(max-width: 500px){
+    .header{
+      .web--name{
+        .logo{
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+        .title{
+          font-size: 1rem;
+        }
+      }
+    }
+    .slider{
+      border-radius: 5px;
+    }
+    #mainMenu{
+      overflow: hidden;
+      ul{
+        .login__button, .logout__button{
+          margin-left: 0rem;
+        }
+      }
+    }
+    .popular--movies--section{
+      display: flex;
+      justify-content: center;
+      width: 95%;
+      .popular__movies__title{
+        padding: 0.1rem;
+        h1{
+          font-size: 1.5rem;
+        }
+      }
+      .popular--movies--container{
+        .popular__movie__card{
+          .movie__card__shown{
+            .popular__movie__image{
+              height: 15rem;
+              width: 9rem;
+              background-size: cover;
+              background-repeat: no-repeat;
+            }
+            .popular__movie__title{
+              width: 8rem;
+              padding: .1rem;
+            }
+          }
+        }
+      }
+    }
+    .movie--selected--section{
+      display: flex;
+      justify-content: center;
+      width: 90%;
+      .movie--data--container{
+        h1{
+          font-size: 1.5rem;
+        }
+        .movie__poster{
+          height: 20rem;
+        }
+        .cast{
+          .actors{
+            .actor__card{
+              .actor__picture{
+                height: 8rem;
+                width: 6rem;
+              }
+            }
+          }
+        }
+        .director{
+          .director__card{
+            .director__picture{
+              height: 8rem;
+              width: 6rem;
+            }
+          }
+        }
+        .rating{
+          font-size: 1.5rem;
+        }
+        .user__vote{
+          font-size: 1.5rem;
+        }
+        .trailer__container{
+          .trailer{
+            width: 20rem;
+            height: 12rem;
+          }
+        }
+      }
+    }
+    .person--section{
+      display: flex;
+      justify-content: center;
+      width: 90%;
+      .person--data--container{
+        .person__picture{
+          height: 18rem;
+          width: 12rem;
+        }
+      }
+    }
+    .rating--bar{
+      .star{
+        font-size: 1.5rem;
+        margin-right: 0rem;
+        padding: 0rem;
+      }
+    }
+    .input--movie--container{
+      .search__button{
+        font-size: 1rem;
+      }
+      .search__button:hover{
+        font-size: 1rem;
+      }
+    }
+    .modal--background{
+      top: -10rem;
+      .modal--card{
+        width: 26rem;
+        height: 23rem;
+        .modal__result{
+          .modal__button{
+            height: 18rem;
+            width: 10rem;
+            margin-bottom: 1rem;
+            .poster__movie__modal{
+              height: 100%;
+              width: 100%;
+              background-size: contain;
+              background-repeat: no-repeat;
+            }
+            .movie__title{
+              width: 9rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media(max-width: 400px){
+    #mainMenu{
+      overflow: hidden;
+    }
+    .slider{
+      border-radius: 5px;
+    }
+    .movie--selected--section{
+      .movie--data--container{
+        .trailer__container{
+          .trailer{
+            width: 18rem;
+            height: 10rem;
+          }
+        }
+      }
+    }
+    .modal--background{
+      top: -10rem;
+      .modal--card{
+        width: 26rem;
+        height: 23rem;
       }
     }
   }

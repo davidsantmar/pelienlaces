@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector} from "react-redux";
+import { useEffect, useState, useRef } from "react";
 import { GetMoviesByName } from "../redux/actions/movieDataActionCreator";
 import { loadMovie } from "../redux/actions/selectedMovieActionCreator";
 import { loadMovieCast } from "../redux/actions/movieCastActionCreator";
@@ -10,6 +10,13 @@ const InputMovie = () => {
   const [show, setShow] = useState(false);
   const movieFound = useSelector((state) => state.movies.results);
   const dispatch = useDispatch();
+  const inputElement = useRef(null);
+  useEffect(() => {   //ios prevent input scroll down
+      inputElement.current.onfocus = () => {
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+    };
+  });
   const handleModalClose = (e) => {
     setShow(false);
   };
@@ -18,15 +25,15 @@ const InputMovie = () => {
       handleClick();
     }
   };
-  function handleChannel(event) {
+  const handleChannel = (event) => {
     setMovieTitle(event.target.value);
   }
-  function handleClick() {
+  const handleClick = () => {
     dispatch(GetMoviesByName(movieTitle));
     setShow(true);
     document.getElementsById('input-movie-container').add('drop-in');
   }
-  function handleMovieSelected(movie) {
+  const handleMovieSelected = (movie) =>{
     dispatch(loadMovie(movie));
     dispatch(loadMovieCast(movie.id));
   }
@@ -38,13 +45,14 @@ const InputMovie = () => {
           type="search"
           className="input__field"
           id='input-field'
+          ref={inputElement}//ios prevent input scroll down
           onChange={handleChannel}
           value={movieTitle}
           placeholder=" Película"
           onKeyPress={handleEnterPressed}
           autoFocus
         />
-        <button type='submit' className="search__button" onClick={handleClick}>
+        <button type='submit' className="search__button" id='search-button' onClick={handleClick}>
           Buscar
         </button>
       </div>

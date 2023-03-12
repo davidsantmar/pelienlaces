@@ -10,9 +10,11 @@ const PopularMovies = () => {
     const [page, setPage] = useState(1);
     const handlePrev = () => {
         setPage(page > 1 ? page - 1 : 1);
+        window.scrollTo(0,0);
     }
     const handleNext = () => {
         setPage(page + 1);
+        window.scrollTo(0,0);
     }
     const pagination = (
       <>

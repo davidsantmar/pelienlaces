@@ -20,6 +20,7 @@ const Navbar = () => {
   });
   useEffect(() => {
     document.getElementById("input-movie-container").style.display = barState;
+          
   })
  /*useEffect(() => {
     const getUsers = async () => {
@@ -45,56 +46,80 @@ const Navbar = () => {
         alert('User not authorised.')
       }*/
     }
-    function toggleNav(){
+    const toggleNav = () => {
+      let navEle = document.getElementById('mainMenu');
+      document.getElementById('web-name').style.display = 'flex';
+      document.getElementById('logo').style.display = 'flex';
+      document.getElementById('mag-glass').style.display = 'flex';
       document.getElementById('hamburger').classList.toggle("change");
-      var navEle = document.getElementById('mainMenu');
+      navEle.style.display = 'flex';
       document.body.style.overflow = 'hidden';
       if(!navEle) return;
-    
       if (!navEle.classList.contains("open")){
         navEle.setAttribute("class","open");
+        if (window.innerWidth < 600){
+          document.getElementById('web-name').style.display = 'none';
+          document.getElementById('mag-glass').style.display = 'none';
+          document.getElementById('input-movie-container').style.display = 'none';
+        }
         return;
       }else{
-        document.body.style.overflow = 'auto'     
+        document.body.style.overflow = 'auto';
+        document.getElementById('input-movie-container').style.display = barState;
+        document.getElementById('mag-glass').style.display = 'flex';
+        navEle.style.display = 'flex';
       }
         navEle.removeAttribute("class");
     }
-    function handleLogout() {
+    const handleLogout = () => {
       dispatch(logout());
     }
-    function searchMovie () {   //to solve 2 clicks 
+    const searchMovie = () => {   //to solve 2 clicks 
       if (barState === 'flex'){
         setBarState('none');
       }else{
         setBarState('flex');
       }
     }
-
+    const handleOption = () => {
+      const menu = document.getElementById('mainMenu');
+      document.getElementById('web-name').style.display = 'flex';
+      document.getElementById('logo').style.display = 'flex';
+      document.getElementById('mag-glass').style.display = 'flex';
+      menu.removeAttribute("class");
+      document.getElementById('hamburger').classList.toggle("change");
+      document.body.style.overflow = 'scroll';
+      if (window.innerWidth < 600){
+        menu.style.display = 'none';
+        document.getElementById('input-movie-container').style.display = 'none';
+      }
+    }
+   
     return (
         <>
           <nav id="mainMenu">
             <ul>
-              <li><Link to='/' className='rated' >Mejor valoradas</Link></li>
-              <li><Link to='/upcomingMovies' className='upcoming'>Próximamente</Link></li>
-              <li><Link to='/nowPlaying' className='nowplaying'>Estrenos</Link></li>
+              <li><Link to='/' className='rated' onClick={handleOption}>Mejor valoradas</Link></li>
+              <li><Link to='/upcomingMovies' className='upcoming' onClick={handleOption}>Próximamente</Link></li>
+              <li><Link to='/nowPlaying' className='nowplaying' onClick={handleOption}>Estrenos</Link></li>
               <li className="login__button" >
                 {isAuthenticated ? (
                         <>
-                          <button onClick={handleLogout}
+                          <div onClick={handleLogout}
                             type="button"
                             className="logout__button" 
                           >
                             <span>Cerrar sesión</span>
-                          </button>
+                          </div>
                         </>
                         ) : (
-                        <button
+                        <div
                           onClick={handleLogin}
                           type="button"
                           className="login__button" 
                         >
                           <span>Iniciar sesión</span>
-                        </button>
+                        </div>
                       )}
               </li>
             </ul>
@@ -109,7 +134,7 @@ const Navbar = () => {
                   </div>
                 </li>
                 <li>
-                  <span className='search' onClick={searchMovie}>&#128269;</span>
+                  <span className='search' id='mag-glass' onClick={searchMovie}>&#128269;</span>
                 </li>
                 <Header />
               </ul>
