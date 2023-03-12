@@ -6,6 +6,6 @@ Developed with HTML, styled with Sass, I use Javascript, BEM and React methodolo
 
 
 Here you can see the website:
-https://peliadvisor.web.app/
+<a href='https://peliadvisor.web.app/'>
 
 ![peliadv](https://user-images.githubusercontent.com/85759378/224577247-66a3fa15-6658-4ada-8524-a4a8d568dc34.png)
