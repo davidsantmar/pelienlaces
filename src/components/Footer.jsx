@@ -12,7 +12,7 @@ const Footer = () => {
                     &#169;
                 </sup>
             </a>
-            <span className='credit'>Based on TMDA data</span>
+            <span className='credit'>Based on TMDB data</span>
         </footer>
     );
 };
