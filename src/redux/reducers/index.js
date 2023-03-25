@@ -9,6 +9,7 @@ import popularMoviesReducer from './popularMoviesReducer';
 import upcomingMoviesReducer from './upcomingMoviesReducer';
 import nowPlayingMoviesReducer from './nowPlayingMoviesReducer';
 import movieCastReducer from './movieCastReducer';
+import directorReducer from './directorReducer';
 
 const rootReducer = combineReducers ({
     movies: movieDataReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers ({
     upcomingMovies: upcomingMoviesReducer,
     nowPlayingMovies: nowPlayingMoviesReducer,
     movieCast: movieCastReducer,
+    director: directorReducer
 })
 
 export default rootReducer;

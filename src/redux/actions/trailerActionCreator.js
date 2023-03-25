@@ -10,10 +10,14 @@ export function getVideoKey(id){
         const { data } = await axios(`${API_VIDEO_KEY}`);
         dispatch({
           type: trailerActionTypes.GET_VIDEO_KEY,
-          data: data.results,
+          data: data?.results[0],
         });
       } catch (error) {
         console.log(error.message);
+        dispatch({
+          type: trailerActionTypes.RESET_TRAILER,
+          data: null,
+        })
       }
   };
 }

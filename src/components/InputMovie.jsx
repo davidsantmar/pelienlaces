@@ -4,6 +4,8 @@ import { GetMoviesByName } from "../redux/actions/movieDataActionCreator";
 import { loadMovie } from "../redux/actions/selectedMovieActionCreator";
 import { loadMovieCast } from "../redux/actions/movieCastActionCreator";
 import { Link } from "react-router-dom";
+import { loadDirector } from "../redux/actions/directorActionCreator";
+import { getVideoKey } from "../redux/actions/trailerActionCreator";
  
 const InputMovie = () => {
   const [movieTitle, setMovieTitle] = useState("");
@@ -11,12 +13,16 @@ const InputMovie = () => {
   const movieFound = useSelector((state) => state.movies.results);
   const dispatch = useDispatch();
   const inputElement = useRef(null);
-  useEffect(() => {   //ios prevent input scroll down
-      inputElement.current.onfocus = () => {
-      window.scrollTo(0, 0);
-      document.body.scrollTop = 0;
-    };
+
+  useEffect(() => {   
+    //ios prevent input scroll down when keyboard appears    
+    inputElement.current.onfocus = () => {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        document.getElementById('input-field').focus = true;
+      };
   });
+  
   const handleModalClose = (e) => {
     setShow(false);
   };
@@ -31,11 +37,13 @@ const InputMovie = () => {
   const handleClick = () => {
     dispatch(GetMoviesByName(movieTitle));
     setShow(true);
-    document.getElementsById('input-movie-container').add('drop-in');
+    //document.getElementById('input-movie-container').add('drop-in');
   }
   const handleMovieSelected = (movie) =>{
     dispatch(loadMovie(movie));
     dispatch(loadMovieCast(movie.id));
+    dispatch(loadDirector(movie.id));
+    dispatch(getVideoKey(movie.id));
   }
 
   return (
@@ -45,12 +53,12 @@ const InputMovie = () => {
           type="search"
           className="input__field"
           id='input-field'
-          ref={inputElement}//ios prevent input scroll down
+          ref={inputElement}//iOS prevent input scroll down
           onChange={handleChannel}
           value={movieTitle}
           placeholder=" Película"
           onKeyPress={handleEnterPressed}
-          autoFocus
+          autoFocus 
         />
         <button type='submit' className="search__button" id='search-button' onClick={handleClick}>
           Buscar

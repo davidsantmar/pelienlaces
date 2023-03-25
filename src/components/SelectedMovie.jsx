@@ -4,32 +4,25 @@ import { loadMovie } from "../redux/actions/selectedMovieActionCreator";
 import { loadPerson } from "../redux/actions/personActionCreator";
 import { Link } from "react-router-dom";
 import RatingBar from './RatingBar';
-import { GetVideoKey, GetDirector } from "../services/GetData";
 import { loadMovieCast } from "../redux/actions/movieCastActionCreator";
+import { loadDirector } from "../redux/actions/directorActionCreator";
+import { getVideoKey } from "../redux/actions/trailerActionCreator";
 
 const SelectedMovie = () => {
     const dispatch = useDispatch();
     const movie = useSelector((state) => state.selectedMovie);
     const movieCast = useSelector((state) => state.movieCast);
-    const [releasedDay, setReleasedDay] = useState('');
-    const [releasedMonth, setReleasedMonth] = useState('');
-    const [releasedYear, setReleasedYear] = useState('');
-    const [videoKey, setVideoKey] = useState('');
-    const [director, setDirector] = useState('');
+    const director = useSelector((state) => state.director);
+    const videoKey = useSelector((state) => state.trailer);
     const [viewMore, setViewMore] = useState(5);
     const [moreless, setMoreless] = useState('todos >>');
-    const [average, setAverage] = useState(0);
 
     useEffect(() => {
         dispatch(loadMovie(movie));
         dispatch(loadMovieCast(movie.id));
-        setReleasedDay(movie.release_date.substr(movie.release_date.length-2,2));
-        setReleasedMonth(movie.release_date.substr(movie.release_date.length-5,2));
-        setReleasedYear(movie.release_date.substr(movie.release_date.length-movie.release_date.length,4));
+        dispatch(loadDirector(movie.id));
+        dispatch(getVideoKey(movie.id));
         rate();
-        GetVideoKey(movie.id).then((tempJson) => setVideoKey(tempJson));
-        GetDirector(movie.id).then((tempJson) => setDirector(tempJson[0]));
-        setAverage(Number(movie.vote_average).toFixed(1));
         window.scrollTo(0,0);
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
@@ -110,19 +103,26 @@ const SelectedMovie = () => {
                     </div>
                     <div className='director'>
                         <h3>Director</h3>
-                        <Link to='/personSelected' onClick={() => handleSelectedPerson(director.id)} className='director__card'>
-                            <img className='director__picture' src={`https://image.tmdb.org/t/p/w400${director.profile_path}`} title={director.name} alt='movie-director'></img>
-                            <span className='director__name'>{director.name}</span>
+                        <Link to='/personSelected' onClick={() => handleSelectedPerson(director?.id)} className='director__card'>
+                            <img className='director__picture' src={`https://image.tmdb.org/t/p/w400${director?.profile_path}`} title={director?.name} alt='movie-director'></img>
+                            <span className='director__name'>{director?.name}</span>
                         </Link>
                     </div>
                     <hr />
-                    <span className='movie__date'><strong>Estreno: </strong>{releasedDay}-{releasedMonth}-{releasedYear}</span>
+                    <span className='movie__date'>
+                        <strong>
+                            Estreno: 
+                        </strong>
+                        {movie.release_date.substr(movie.release_date.length-2,2)}
+                        -{movie.release_date.substr(movie.release_date.length-5,2)}
+                        -{movie.release_date.substr(movie.release_date.length-movie.release_date.length,4)}
+                    </span>
                     <span className='votes'><strong>Votaciones: </strong> {movie.vote_count}</span>
-                    <span className='rating'><strong>Rating: </strong>&#11088; {average}<span className='emoji__rating' id='emoji-rating'></span></span>
+                    <span className='rating'><strong>Rating: </strong>&#11088; {movie.vote_average.toFixed(1)}<span className='emoji__rating' id='emoji-rating'></span></span>
                     <span className='user__vote'><strong>Tu valoración: </strong></span>
                     <RatingBar />
                     <div className='trailer__container'>
-                        <iframe className='trailer' id='iframe1' src={`https://www.youtube.com/embed/${videoKey}`} title={movie.title}>
+                        <iframe className='trailer' id='iframe1' src={`https://www.youtube.com/embed/${videoKey?.key}`} title={movie.title}>
                         </iframe> 
                     </div>
                     

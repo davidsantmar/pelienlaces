@@ -19,8 +19,7 @@ const Navbar = () => {
       };
   });
   useEffect(() => {
-    document.getElementById("input-movie-container").style.display = barState;
-          
+    document.getElementById("input-movie-container").style.display = barState;          
   })
  /*useEffect(() => {
     const getUsers = async () => {
