@@ -22,7 +22,7 @@ const rootReducer = combineReducers ({
     upcomingMovies: upcomingMoviesReducer,
     nowPlayingMovies: nowPlayingMoviesReducer,
     movieCast: movieCastReducer,
-    director: directorReducer
+    director: directorReducer,
 })
 
 export default rootReducer;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadMovie } from "../redux/actions/selectedMovieActionCreator";
 import { loadPerson } from "../redux/actions/personActionCreator";
@@ -7,15 +7,34 @@ import RatingBar from './RatingBar';
 import { loadMovieCast } from "../redux/actions/movieCastActionCreator";
 import { loadDirector } from "../redux/actions/directorActionCreator";
 import { getVideoKey } from "../redux/actions/trailerActionCreator";
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase/index';
+import { addComment, addRatingToUser } from "../firebase/actions";
+import { addCommentToUser } from "../firebase/actions";
+import { getAuth } from 'firebase/auth';
+
 
 const SelectedMovie = () => {
     const dispatch = useDispatch();
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const { isAuthenticated } = useSelector((state) => {
+        return {
+          isAuthenticated: state.auth.isAuthenticated
+        };
+    });
+    //const usersCommentsCollection = collection(db, `${user}_comment`);
     const movie = useSelector((state) => state.selectedMovie);
+    const movieCommentsCollection = collection(db, `comments_${movie.id}`);
     const movieCast = useSelector((state) => state.movieCast);
     const director = useSelector((state) => state.director);
     const videoKey = useSelector((state) => state.trailer);
     const [viewMore, setViewMore] = useState(5);
     const [moreless, setMoreless] = useState('todos >>');
+    const [newNick, setNewNick] = useState('');
+    const [newComment, setNewComment] = useState('');
+    const [users, setUsers] = useState([]);
+    const [movieComments, setMovieComments] = useState([]);
 
     useEffect(() => {
         dispatch(loadMovie(movie));
@@ -23,6 +42,12 @@ const SelectedMovie = () => {
         dispatch(loadDirector(movie.id));
         dispatch(getVideoKey(movie.id));
         rate();
+        const getComments = async () => {
+            const data = await getDocs(movieCommentsCollection);
+            setMovieComments(data.docs.map((doc) => ({...doc.data(), id:doc.id})));   
+        }
+        getComments();
+       
         window.scrollTo(0,0);
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
@@ -62,6 +87,33 @@ const SelectedMovie = () => {
         }else if (moreless === 'todos >>'){
             setViewMore(movieCast.length);
         }
+    }
+    const postComment = async () => {
+        if (isAuthenticated === true){
+            await addComment(movie.id, {
+                comment: newComment,
+                nick: newNick,  
+                createdAt: new Date(),
+            });
+        saveCommentToUser();
+        onClear();
+        }
+        else if (isAuthenticated === false || isAuthenticated === undefined){
+            alert('Es necesario iniciar sesión para poder comentar.');
+        }
+    }
+    const saveCommentToUser = async () => {
+            await addCommentToUser(user, {
+                user: user.displayName,
+                comment: newComment,
+                createdAt: new Date(),
+                movieTitle: movie.title,
+                nick: newNick,  
+            })
+    }
+    const onClear = () => {
+        setNewNick('');
+        setNewComment('');
     }
     
     return (
@@ -125,7 +177,41 @@ const SelectedMovie = () => {
                         <iframe className='trailer' id='iframe1' src={`https://www.youtube.com/embed/${videoKey?.key}`} title={movie.title}>
                         </iframe> 
                     </div>
-                    
+                    <div className='comment--container'>
+                        <div className='comment--title__container'>
+                            <span className='comment__title'>
+                                Deja tu comentario:
+                            </span>
+                        </div>                        
+                    </div>
+                    <br />
+                    <label for='nick'>Nick: </label>
+                    <input type='text' className='nick__area' value={newNick} onInput={(event) => {setNewNick(event.target.value)}}/>
+                    <br />
+                    <label for='comment'>Comentario: </label>
+                    <textarea  className='comment__area'value={newComment} onInput={(event) => {setNewComment(event.target.value)}}></textarea>
+                    <br></br>
+                    <div className='comments__instructions'>
+                        <span>No spoilers - No spam - No insultos</span>
+                    </div>
+                    <button onClick={postComment} type='submit' value='Enviar' className='comment__submit'>Enviar</button>
+                    <div className='postings' id='posting'>
+                        {movieComments
+                        .sort(function (a, b) {
+                            return a.createdAt - b.createdAt;
+                        })
+                        .map((movieComment) => {
+                            return(
+                                <Fragment key={movieComment.id}>
+                                    <div className='comment__card'>
+                                        <span className='comment__date'>El {new Date(movieComment.createdAt.seconds * 1000).toLocaleDateString("es-ES")} </span>
+                                        <span className='nick__posted'>{movieComment.nick} dice: </span>
+                                        <span> {movieComment.comment}</span>
+                                    </div>
+                                </Fragment>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
         </>

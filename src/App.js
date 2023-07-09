@@ -11,6 +11,9 @@ import BrandsCarousel from './components/BrandsCarousel';
 import PersonSelected from './components/PersonSelected';
 import SelectedMovie from './components/SelectedMovie';
 import Navbar from './components/Navbar';
+import UserProfile from './components/UserProfile';
+import ShowRatings from './components/ShowRatings';
+import ShowComments from './components/ShowComments';
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
               <Route path="/upcomingMovies" exact element={<UpcomingMovies />} />
               <Route path="/nowPlaying" exact element={<NowPlaying />} />
               <Route path="/personSelected" exact element={<PersonSelected />} />
+              <Route path="/userProfile" exact element={<UserProfile />} />
+              <Route path='showRatings' exact element={<ShowRatings />} />
+              <Route path='/showComments' exact element={<ShowComments />} />
             </Routes>
         </BrowserRouter>
         <BrandsCarousel />

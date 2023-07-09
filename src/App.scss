@@ -20,6 +20,15 @@ hr{
       justify-content: center;
       background-color: rgb(50, 50, 250);
       width: 100%;
+      .user__profile{
+        background-image: url('./images/user.jpg');
+        width: 2rem;
+        height: 2rem;
+        border: solid 2px red;        
+        background-size: cover;
+        margin-left: 1rem;
+        border-radius: 20px;
+      }
       .logo{
         height: 2.5rem;
         width: 2.5rem;
@@ -58,6 +67,99 @@ hr{
         margin-top: 1rem;
     }
 }
+.user--profile--section{
+  display: flex;
+  justify-content: center;
+  .user--profile--container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    .user--data{
+      display: flex;
+      width: 100%;
+      font-size: 2rem;
+      justify-content: space-between;
+      padding: 1rem;
+      flex-direction: row;
+      .user__info{
+        display: flex;
+        flex-direction: column;
+        .user__name{
+          font-weight: bolder;
+          font-size: 3rem;
+        }
+        .user__email{
+          font-size: 1.5rem;
+          font-style: italic;
+        }
+        .user__email, .user__name{
+          margin-bottom: 1rem;
+        }
+      }
+      .user__picture{
+        width: 6rem;
+        height: 6rem;
+        border-radius: 50px;
+        border: solid 2px lightgreen;
+        background-size: 'cover';
+        margin-right: 1rem;
+      }
+    }
+    .tabs{
+      display: flex;
+      flex-direction: row;
+      height: 4rem;
+      margin-bottom: 1rem;
+      .comments__info, .ratings__info{
+        font-size: 2rem;
+        height: 2rem;
+        text-decoration: none;
+        margin-right: 1.5rem;
+        border: none;
+        font-weight: 0;
+        color:inherit;
+        padding: .3rem;
+      }
+      .comments__info:focus, .ratings__info:focus{
+        background-color: lightgrey;
+        border-radius: 10px;
+      }
+    }
+    .dashboard--info{
+      display: flex;
+      flex-direction: column;
+      height: 40rem;
+      border-radius: 10px;
+
+      .comment__card{
+        display: flex;
+        border: solid 1px black;
+        border-radius: 10px;
+        justify-content: flex-start;
+        padding: 1rem;
+        font-size: 1.5rem;
+        flex-direction: row;
+        margin-bottom: 1rem;
+        .comment__date{
+          margin-right: .5rem;
+        }
+        .comment{
+          margin-left: .5rem;
+          font-style: italic;
+          margin-right: .5rem;
+        }
+        .rating{
+          margin-left: .5rem;
+          margin-right: .5rem;
+        }
+    }
+    }
+  }
+}
 #mainMenu{
   position: relative;
   float: left;
@@ -87,13 +189,20 @@ hr{
         text-decoration: none;
       }  
     }
-    .login__button, .logout__button{
+    .login__button{
       background: none;
       border: none;
       font-size: 1.5rem;
       font-family: 'Gruppo';
       color: white;
+      .logout__button{
+        text-decoration: none;
+        color: white;
+        margin-top: 1rem;
+      }
+      
     }
+    
     li:hover, .login__button:hover, .logout__button:hover{
       color: #fff;
       text-shadow:
@@ -485,7 +594,7 @@ hr{
     }
     .trailer__container{
       display: flex;
-      margin-bottom: 2rem;
+      margin-bottom: 4rem;
       .trailer{
         margin-top: 2rem;
         border-radius: 10px;
@@ -499,6 +608,74 @@ hr{
       border-radius: 10px;
       color: white;
      }
+  }
+  .comment--container{
+    display: flex;
+    .comment__title{
+      font-weight: bold;
+    }
+  }
+  .nick__area{
+    border-radius: 10px;
+    font-family: 'Gruppo';
+    font-size: 1.5rem;
+    padding: .5rem;
+  }
+  .nick__area:hover{
+    background-image: radial-gradient(yellow, rgb(4, 195, 4));
+    color: black;
+  }
+  .comment__area{
+    border-radius: 10px;
+    height: 10rem;
+    width: 40rem;
+    font-family: 'Gruppo';
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+  .comment__area:hover{
+    background-image: radial-gradient(yellow, rgb(4, 195, 4));
+    color: black;
+  }
+  .comment__submit{
+    height: 3rem;
+    width: 10rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    background-color: rgb(50, 50, 250);
+    color: white;
+    font-family: 'Gruppo';
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  .comment__submit:hover{
+    background-image: radial-gradient(yellow, rgb(4, 195, 4));
+    color: black;
+  }
+  .comments__instructions{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;  
+  }
+  .postings{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .comment__card{
+      display: flex;
+      border: 1px solid black; 
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      margin-top: 1rem;
+      padding: 1rem;
+      .nick__posted{
+        font-style: italic;
+        margin-right: .5rem;
+      }
+      .comment__date{
+        margin-right: .5rem;
+      }
+    }
   }
 }
 .rating--bar {
@@ -774,6 +951,7 @@ h1 {
       .logo{
         width: 1.5rem;
         height: 1.5rem;
+        
       }
       .title{
         font-size: 1rem;

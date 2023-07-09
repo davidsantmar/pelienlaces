@@ -19,7 +19,7 @@ const Navbar = () => {
       };
   });
   useEffect(() => {
-    document.getElementById("input-movie-container").style.display = barState;          
+    document.getElementById("input-movie-container").style.display = barState;
   })
  /*useEffect(() => {
     const getUsers = async () => {
@@ -80,6 +80,7 @@ const Navbar = () => {
         setBarState('flex');
       }
     }
+    
     const handleOption = () => {
       const menu = document.getElementById('mainMenu');
       document.getElementById('web-name').style.display = 'flex';
@@ -103,25 +104,26 @@ const Navbar = () => {
               <li><Link to='/nowPlaying' className='nowplaying' onClick={handleOption}>Estrenos</Link></li>
               <li className="login__button" >
                 {isAuthenticated ? (
-                        <>
-                          <div onClick={handleLogout}
-                            type="button"
-                            className="logout__button" 
-                          >
-                            <span>Cerrar sesión</span>
-                          </div>
-                        </>
-                        ) : (
-                        <div
-                          onClick={handleLogin}
-                          type="button"
-                          className="login__button" 
-                        >
-                          <span>Iniciar sesión</span>
-                        </div>
-                      )}
+                  <>                       
+                      <Link onClick={handleLogout}
+                        type="button"
+                        className="logout__button" 
+                      >
+                        <span>Cerrar sesión</span>
+                      </Link>
+                      
+                  </>
+                  ) : (
+                    <div
+                      onClick={handleLogin}
+                      type="button"
+                      className="login__button" 
+                    >
+                      <span>Iniciar sesión</span>
+                    </div>
+                  )}
               </li>
-            </ul>
+          </ul>
           </nav>
           <div className='navbar'> 
               <ul className='navbar__options'>
